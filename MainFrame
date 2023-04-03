@@ -1,0 +1,104 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import javafx.scene.control.PasswordField;
+public class MainFrame extends JFrame{
+
+    final private Font font = new Font("Arial", Font.BOLD, 18);
+    JTextField user;
+    JPasswordField password;
+    JLabel welcome;
+    public void initialize() {
+        JLabel username =  new JLabel("Username");
+        username.setFont(font);
+        username.setForeground(Color.WHITE);
+
+        user = new JTextField();
+        user.setFont(font);
+
+        JLabel passwordname =  new JLabel("Password");
+        passwordname.setFont(font);
+        passwordname.setForeground(Color.WHITE);
+
+        password = new JPasswordField();
+        password.setFont(font);
+
+        welcome = new JLabel("Welcome mga bhie!");
+        welcome.setFont(font);
+        welcome.setForeground(Color.WHITE);
+
+        JButton ok = new JButton("OK");
+        ok.setFont(font);
+        ok.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                if(user.getText().equals("admin") && password.getText().equals("password123")){
+                    String username = user.getText();
+                    String passwordname = password.getText();
+                    welcome.setText("Welcome Admin!");
+                }
+
+                else if (user.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(MainFrame.this, "Please enter your username");
+                }
+                else if (password.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(MainFrame.this, "Please enter your password");
+                }
+                else {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Please enter a valid username and password.");
+                }
+            }
+
+        });
+
+        JButton clear = new JButton("Clear");
+        clear.setFont(font);
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                user.setText("");
+                password.setText("");
+                welcome.setText("Welcome mga bhie!");
+            }
+        });
+
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new GridLayout(1, 2, 5, 5));
+        buttons.add(ok);
+        buttons.add(clear);
+        buttons.setOpaque(false);
+
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new GridLayout(4, 1, 5, 5));
+        formPanel.add(username);
+        formPanel.add(user);
+        formPanel.add(passwordname);
+        formPanel.add(password);
+        formPanel.setOpaque(false);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.BLACK);
+        panel.add(formPanel, BorderLayout.NORTH);
+        panel.add(welcome, BorderLayout.CENTER);
+        panel.add(buttons, BorderLayout.SOUTH);
+
+        add(panel);
+
+        setTitle("Testing lang bhie");
+        setSize(500, 600);
+        setMinimumSize(new Dimension(300, 400));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new MainFrame().initialize();
+    }
+}
